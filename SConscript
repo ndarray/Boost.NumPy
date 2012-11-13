@@ -55,11 +55,17 @@ int main()
     context.env.AppendUnique(LIBPATH=[libDir])
     libfile = distutils.sysconfig.get_config_var("LIBRARY")
     import re
-    match = re.search("(python.*)\.(a|so|dylib)", libfile)
-    if match:
-        context.env.AppendUnique(LIBS=[match.group(1)])
-    flags = [f for f in " ".join(distutils.sysconfig.get_config_vars("MODLIBS", "SHLIBS")).split()
-             if f != "-L"]
+    if libfile is not None:
+        match = re.search("(python.*)\.(a|so|dylib)", libfile)
+        if match:
+            context.env.AppendUnique(LIBS=[match.group(1)])
+    elif context.env["PLATFORM"] == "win32":
+        context.env.AppendUnique(LIBS=["python%s.dll" % distutils.sysconfig.get_config_var("VERSION")])
+    modlibs = distutils.sysconfig.get_config_vars("MODLIBS")
+    if modlibs is None: modlibs = ""
+    shlibs = distutils.sysconfig.get_config_vars("SHLIBS")
+    if shlibs is None: shlibs = ""
+    flags = [f for f in ("%s %s" % (modlibs, shlibs)).split() if f != "-L"]
     context.env.MergeFlags(" ".join(flags))
     result, output = context.TryRun(python_source_file,'.cpp')
     if not result and context.env["PLATFORM"] == 'darwin':
@@ -83,6 +89,8 @@ int main()
         return False
     if context.env["PLATFORM"] == "darwin":
         context.env["LDMODULESUFFIX"] = ".so"
+    if context.env["PLATFORM"] == "win32":
+        context.env["LDMODULESUFFIX"] = ".pyd"
     context.Result(1)
     return True
 
