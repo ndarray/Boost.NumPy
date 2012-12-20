@@ -117,29 +117,32 @@ public:
     } else if (boost::is_integral<T>::value) {
       // allow int/long or long/longlong conversions, if one of those pairs has the same size
       if (boost::is_unsigned<T>::value) {
-        if (sizeof(T) == sizeof(int) && obj->ob_type == array_scalar_converter<int>::get_pytype()) {
+        if (sizeof(T) == sizeof(unsigned int) && obj->ob_type
+            == array_scalar_converter<unsigned int>::get_pytype()) {
           return obj;
         }
-        if (sizeof(T) == sizeof(long) && obj->ob_type == array_scalar_converter<int>::get_pytype()) {
+        if (sizeof(T) == sizeof(unsigned long) && obj->ob_type
+            == array_scalar_converter<unsigned long>::get_pytype()) {
           return obj;
         }
-        if (sizeof(T) == sizeof(long long) && obj->ob_type == array_scalar_converter<int>::get_pytype()) {
+        if (sizeof(T) == sizeof(unsigned long long) && obj->ob_type 
+            == array_scalar_converter<unsigned long long>::get_pytype()) {
           return obj;
         }
         return 0;
       } else {
-        if (sizeof(T) == sizeof(unsigned int)
-            && obj->ob_type == array_scalar_converter<unsigned int>::get_pytype()) {
+        if (sizeof(T) == sizeof(int)
+            && obj->ob_type == array_scalar_converter<int>::get_pytype()) {
           return obj;
         }
-        if (sizeof(T) == sizeof(unsigned long)
-            && obj->ob_type == array_scalar_converter<unsigned long>::get_pytype()) {
+        if (sizeof(T) == sizeof(long)
+            && obj->ob_type == array_scalar_converter<long>::get_pytype()) {
           return obj;
         }
-        if (sizeof(T) == sizeof(unsigned long long)
-            && obj->ob_type == array_scalar_converter<unsigned long long>::get_pytype()) {
+        if (sizeof(T) == sizeof(long long)
+            && obj->ob_type == array_scalar_converter<long long>::get_pytype()) {
           return obj;
-        }        
+        }
       }
       return 0;
     } else { 
