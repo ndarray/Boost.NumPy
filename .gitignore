@@ -10,4 +10,5 @@ libs/numpy/example/simple
 libs/numpy/example/ufunc
 libs/numpy/example/wrap
 build
+build-vc90
 *~
