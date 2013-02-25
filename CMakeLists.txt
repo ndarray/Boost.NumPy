@@ -34,6 +34,10 @@ message( STATUS "found boost:"
 # In some cases, you may need to explicitly specify that a dynamic Boost is used; if so use:
 # add_definitions( -DBOOST_ALL_DYN_LINK )
 
+if (NOT WIN32)
+  add_definitions(-fPIC)
+endif()
+
 ENABLE_TESTING()
 
 include_directories(
