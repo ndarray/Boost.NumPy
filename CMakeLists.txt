@@ -20,7 +20,19 @@ find_package(PythonInterp REQUIRED)
 find_package(PythonLibsNew REQUIRED)
 find_package(NumPy REQUIRED)
 
-FIND_PACKAGE(Boost COMPONENTS python)
+# set(Boost_USE_STATIC_LIBS ON)
+# set(Boost_USE_MULTITHREADED ON) 
+# set(Boost_USE_STATIC_RUNTIME ON)
+FIND_PACKAGE(Boost COMPONENTS python REQUIRED)
+
+message( STATUS "found boost:"
+  "\nINCLUDE: ${Boost_INCLUDE_DIRS}"
+  "\nLIB: ${Boost_LIBRARIES}"
+)
+
+# add_definitions( -DBOOST_ALL_NO_LIB )
+# In some cases, you may need to explicitly specify that a dynamic Boost is used; if so use:
+# add_definitions( -DBOOST_ALL_DYN_LINK )
 
 ENABLE_TESTING()
 
