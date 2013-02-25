@@ -25,3 +25,15 @@ ADD_TEST(templates_mod ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/runCmakeTest.sh ${TEST_
 PYTHON_ADD_MODULE(ufunc_mod ufunc_mod.cpp)
 TARGET_LINK_LIBRARIES(ufunc_mod boost_numpy ${PYTHON_LIBRARIES} ${Boost_LIBRARIES})
 ADD_TEST(ufunc_mod ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/runCmakeTest.sh ${TEST_SOURCE_DIR}/ufunc.py)
+
+set(DEST_TEST boost.numpy/test)
+
+install(TARGETS dtype_mod indexing_mod ndarray_mod shapes_mod templates_mod ufunc_mod LIBRARY
+  DESTINATION ${DEST_TEST}
+  ${INSTALL_PERMSSIONS_RUNTIME}
+  )
+
+install(FILES dtype.py indexing.py ndarray.py shapes.py templates.py ufunc.py
+  DESTINATION ${DEST_TEST}
+  ${INSTALL_PERMSSIONS_SRC}
+  )
