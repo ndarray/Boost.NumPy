@@ -53,7 +53,10 @@ LINK_LIBRARIES(${PYTHON_LIBRARY})
 ADD_SUBDIRECTORY(libs/numpy/src)
 ADD_SUBDIRECTORY(libs/numpy/example)
 ADD_SUBDIRECTORY(libs/numpy/test)
-ADD_SUBDIRECTORY(libs/numpy/doc)
+
+if (BUILD_DOC)
+  ADD_SUBDIRECTORY(libs/numpy/doc)
+endif()
 
 set( INSTALL_PERMISSIONS_RUNTIME 
   PERMISSIONS 
