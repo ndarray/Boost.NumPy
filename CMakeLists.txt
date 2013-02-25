@@ -52,3 +52,4 @@ LINK_LIBRARIES(${PYTHON_LIBRARY})
 
 ADD_SUBDIRECTORY(libs/numpy/src)
 ADD_SUBDIRECTORY(libs/numpy/example)
+ADD_SUBDIRECTORY(libs/numpy/test)
