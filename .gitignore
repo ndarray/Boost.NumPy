@@ -11,5 +11,6 @@ libs/numpy/example/ufunc
 libs/numpy/example/wrap
 build
 build-vc90
+build-vc100
 *~
 \#*\#

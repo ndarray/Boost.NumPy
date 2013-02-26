@@ -1,15 +1,55 @@
 project(doc-html)
-add_custom_target(doc-html make -C ${PROJECT_SOURCE_DIR} html BUILDDIR=${PROJECT_BINARY_DIR}/_build)
+file(GLOB NUMPY_DOC_DEPS conf.py *.rst)
+message( STATUS "NUMPY_DOC_DEPS=${NUMPY_DOC_DEPS}" )
 
-project(doc-pdf)
-add_custom_target(doc-pdf make -C ${PROJECT_SOURCE_DIR} latexpdf BUILDDIR=${PROJECT_BINARY_DIR}/_build)
+# add_custom_target(doc-html make -C ${PROJECT_SOURCE_DIR} html BUILDDIR=${PROJECT_BINARY_DIR}/_build)
+#
+# this custom target is a cross-platform python/sphinx way to
+# replicate what the above make command is doing.
+#
+add_custom_target(doc-html
+  ${SPHINX_BUILD}
+     -b html 
+     -c ${CMAKE_CURRENT_SOURCE_DIR}
+     -d .doctrees
+     ${CMAKE_CURRENT_SOURCE_DIR}
+     html
+  
+  DEPENDS ${NUMPY_DOC_DEPS}
+  WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
+  COMMENT "Generating HTML Documentation"
+)
 
-install(DIRECTORY ${PROJECT_BINARY_DIR}/_build/html
+install(DIRECTORY ${PROJECT_BINARY_DIR}/html
   DESTINATION boost.numpy/doc
   ${INSTALL_PERMISSIONS_SRC}
   )
 
-install(FILES ${PROJECT_BINARY_DIR}/_build/latex/BoostNumPy.pdf
-  DESTINATION boost.numpy/doc
-  ${INSTALL_PERMISSIONS_SRC}
-  )
+if (PDFLATEX_COMPILER)
+  project(doc-pdf)
+
+  add_custom_target(doc-pdf
+    ${SPHINX_BUILD}
+      -b latex 
+      -c ${CMAKE_CURRENT_SOURCE_DIR}
+      -d .doctrees
+      ${CMAKE_CURRENT_SOURCE_DIR}
+      latex
+    
+    DEPENDS ${NUMPY_DOC_DEPS}
+    WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
+    COMMENT "Generating Latex-pdf Documentation"
+    )
+
+  add_custom_command(OUTPUT ${PROJECT_BINARY_DIR}/latex/BoostNumPy.pdf
+    COMMAND ${PDFLATEX_COMPILER} BoostNumPy.tex
+    COMMAND ${PDFLATEX_COMPILER} BoostNumPy.tex
+    WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/latex
+    )
+
+  install(FILES ${PROJECT_BINARY_DIR}/latex/BoostNumPy.pdf
+    DESTINATION boost.numpy/doc
+    ${INSTALL_PERMISSIONS_SRC}
+    )
+
+endif()

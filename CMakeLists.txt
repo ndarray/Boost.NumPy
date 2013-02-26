@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 2.8.3)
 
+project( boost.numpy )
+
 # put our local cmake find scripts at the beginning of the cmake
 # module search path
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/libs/numpy/cmake ${CMAKE_MODULE_PATH})
@@ -34,6 +36,33 @@ message( STATUS "found boost:"
 # In some cases, you may need to explicitly specify that a dynamic Boost is used; if so use:
 # add_definitions( -DBOOST_ALL_DYN_LINK )
 
+set(BUILD_DOCS ON CACHE BOOL "Build Boost.NumPy Documentation")
+
+if(BUILD_DOCS)
+  EXECUTE_PROCESS(COMMAND ${PYTHON_EXECUTABLE} -c "import sphinx; print sphinx.__version__"
+    RESULT_VARIABLE SPHINX_PROCESS
+    OUTPUT_VARIABLE SPHINX_VERSION
+    OUTPUT_STRIP_TRAILING_WHITESPACE)
+  
+  set(HAVE_SPHINX 0)
+  if(SPHINX_PROCESS EQUAL 0)
+    FIND_PROGRAM(SPHINX_BUILD sphinx-build)
+    if(SPHINX_BUILD)
+      set(HAVE_SPHINX 1)
+      message(STATUS "    Found Sphinx ${SPHINX_VERSION}: ${SPHINX_BUILD}")
+    else()
+      MESSAGE(SEND_ERROR "must be able to find sphinx-build when BUILD_DOCS is enabled")
+    endif()
+  endif()
+  
+  FIND_PACKAGE(LATEX)
+  if (PDFLATEX_COMPILER)
+    message( STATUS "Found PDFLATEX_COMPILER=${PDFLATEX_COMPILER}" )
+  else()
+    message( STATUS "Found PDFLATEX_COMPILER NOT found" )
+  endif()
+endif()
+
 if (NOT WIN32)
   add_definitions(-fPIC)
 endif()
@@ -54,7 +83,7 @@ ADD_SUBDIRECTORY(libs/numpy/src)
 ADD_SUBDIRECTORY(libs/numpy/example)
 ADD_SUBDIRECTORY(libs/numpy/test)
 
-if (BUILD_DOC)
+if (BUILD_DOCS)
   ADD_SUBDIRECTORY(libs/numpy/doc)
 endif()
 
