@@ -24,7 +24,6 @@ SET_PROPERTY(TARGET doc-html PROPERTY FOLDER "doc")
 
 install(DIRECTORY ${PROJECT_BINARY_DIR}/html
   DESTINATION boost.numpy/doc
-  ${INSTALL_PERMISSIONS_SRC}
   )
 
 if (PDFLATEX_COMPILER)
@@ -50,7 +49,6 @@ if (PDFLATEX_COMPILER)
 
   install(FILES ${PROJECT_BINARY_DIR}/latex/BoostNumPy.pdf
     DESTINATION boost.numpy/doc
-    ${INSTALL_PERMISSIONS_SRC}
     )
 
 endif()
