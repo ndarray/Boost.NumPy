@@ -1,24 +1,31 @@
 
 PYTHON_ADD_MODULE(gaussian gaussian.cpp)
 TARGET_LINK_LIBRARIES(gaussian boost_numpy ${PYTHON_LIBRARIES} ${Boost_LIBRARIES})
+SET_PROPERTY(TARGET gaussian PROPERTY FOLDER "example")
 
 ADD_EXECUTABLE(dtype dtype.cpp)
 TARGET_LINK_LIBRARIES(dtype  boost_numpy ${PYTHON_LIBRARIES} ${Boost_LIBRARIES})
+SET_PROPERTY(TARGET dtype PROPERTY FOLDER "example")
 
 ADD_EXECUTABLE(fromdata fromdata.cpp)
 TARGET_LINK_LIBRARIES(fromdata  boost_numpy ${PYTHON_LIBRARIES} ${Boost_LIBRARIES})
+SET_PROPERTY(TARGET fromdata PROPERTY FOLDER "example")
 
 ADD_EXECUTABLE(ndarray ndarray.cpp)
 TARGET_LINK_LIBRARIES(ndarray  boost_numpy ${PYTHON_LIBRARIES} ${Boost_LIBRARIES})
+SET_PROPERTY(TARGET ndarray PROPERTY FOLDER "example")
 
 ADD_EXECUTABLE(simple simple.cpp)
 TARGET_LINK_LIBRARIES(simple  boost_numpy ${PYTHON_LIBRARIES} ${Boost_LIBRARIES})
+SET_PROPERTY(TARGET simple PROPERTY FOLDER "example")
 
 ADD_EXECUTABLE(ufunc ufunc.cpp)
 TARGET_LINK_LIBRARIES(ufunc boost_numpy ${PYTHON_LIBRARIES} ${Boost_LIBRARIES})
+SET_PROPERTY(TARGET ufunc PROPERTY FOLDER "example")
 
 ADD_EXECUTABLE(wrap wrap.cpp)
 TARGET_LINK_LIBRARIES(wrap  boost_numpy ${PYTHON_LIBRARIES} ${Boost_LIBRARIES})
+SET_PROPERTY(TARGET wrap PROPERTY FOLDER "example")
 
 set(DEST_EXAMPLE boost.numpy/example)
 

@@ -20,6 +20,8 @@ add_custom_target(doc-html
   COMMENT "Generating HTML Documentation"
 )
 
+SET_PROPERTY(TARGET doc-html PROPERTY FOLDER "doc")
+
 install(DIRECTORY ${PROJECT_BINARY_DIR}/html
   DESTINATION boost.numpy/doc
   ${INSTALL_PERMISSIONS_SRC}
@@ -36,16 +38,15 @@ if (PDFLATEX_COMPILER)
       ${CMAKE_CURRENT_SOURCE_DIR}
       latex
     
+    COMMAND ${PDFLATEX_COMPILER} --include-directory=latex --output-directory=latex latex/BoostNumPy.tex 
+    COMMAND ${PDFLATEX_COMPILER} --include-directory=latex --output-directory=latex latex/BoostNumPy.tex 
+
     DEPENDS ${NUMPY_DOC_DEPS}
     WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
     COMMENT "Generating Latex-pdf Documentation"
     )
 
-  add_custom_command(OUTPUT ${PROJECT_BINARY_DIR}/latex/BoostNumPy.pdf
-    COMMAND ${PDFLATEX_COMPILER} BoostNumPy.tex
-    COMMAND ${PDFLATEX_COMPILER} BoostNumPy.tex
-    WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/latex
-    )
+  SET_PROPERTY(TARGET doc-pdf PROPERTY FOLDER "doc")
 
   install(FILES ${PROJECT_BINARY_DIR}/latex/BoostNumPy.pdf
     DESTINATION boost.numpy/doc
