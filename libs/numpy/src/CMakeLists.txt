@@ -1,5 +1,5 @@
-# PYTHON_ADD_MODULE(boost_numpy 
 add_library(boost_numpy STATIC
+  # header files
   ../../../boost/numpy/dtype.hpp
   ../../../boost/numpy/internal.hpp
   ../../../boost/numpy/invoke_matching.hpp
@@ -9,6 +9,7 @@ add_library(boost_numpy STATIC
   ../../../boost/numpy/scalars.hpp
   ../../../boost/numpy/ufunc.hpp
 
+  # source files (in current directory)
   dtype.cpp
   scalars.cpp
   ndarray.cpp
