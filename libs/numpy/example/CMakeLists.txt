@@ -1,5 +1,16 @@
 # custom macro with most of the redundant code for making a python example module
-macro( addPythonExample _name _srccpp )
+macro( addPythonExe _name _srccpp )
+  ADD_EXECUTABLE(${_name} ${_srccpp})
+  
+  # make the pyd library link against boost_numpy python and boost
+  TARGET_LINK_LIBRARIES(${_name} boost_numpy ${PYTHON_LIBRARIES} ${Boost_LIBRARIES})
+  
+  # put the example target into a VS solution folder named example (should
+  # be a no-op for Linux)
+  SET_PROPERTY(TARGET ${_name} PROPERTY FOLDER "example")
+endmacro()
+
+macro( addPythonMod _name _srccpp )
   PYTHON_ADD_MODULE(${_name} ${_srccpp})
   
   # make the pyd library link against boost_numpy python and boost
@@ -10,13 +21,13 @@ macro( addPythonExample _name _srccpp )
   SET_PROPERTY(TARGET ${_name} PROPERTY FOLDER "example")
 endmacro()
 
-addPythonExample(gaussian gaussian.cpp)
-addPythonExample(dtype dtype.cpp)
-addPythonExample(fromdata fromdata.cpp)
-addPythonExample(ndarray ndarray.cpp)
-addPythonExample(simple simple.cpp)
-addPythonExample(ufunc ufunc.cpp)
-addPythonExample(wrap wrap.cpp)
+addPythonMod(gaussian gaussian.cpp)
+addPythonExe(dtype dtype.cpp)
+addPythonExe(fromdata fromdata.cpp)
+addPythonExe(ndarray ndarray.cpp)
+addPythonExe(simple simple.cpp)
+addPythonExe(ufunc ufunc.cpp)
+addPythonExe(wrap wrap.cpp)
 
 # # installation logic (skip until it is better thought out)
 # set(DEST_EXAMPLE boost.numpy/example)
