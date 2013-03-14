@@ -17,7 +17,7 @@ Usage
 On my CentOs 6.3 linux system with a custom installation of boost, I
 needed to invoke cmake with a special option as shown here to get
 cmake to properly use the boost installation as referenced by the
-environment variable :envvar:`BOOST_ROOT`
+environment variable :envvar:`BOOST_ROOT` or :envvar:`BOOST_DIR`.
 
 .. code-block:: bash
 
