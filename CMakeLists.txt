@@ -39,8 +39,15 @@ message( STATUS "found boost:"
 # In some cases, you may need to explicitly specify that a dynamic Boost is used; if so use:
 # add_definitions( -DBOOST_ALL_DYN_LINK )
 
+# variable controlling whether the boost_numpy is a shared or static library
+if (WIN32)
+  set(LIBRARY_TYPE STATIC CACHE STRING "type of library to make for boost_numpy")
+else()
+  set(LIBRARY_TYPE SHARED CACHE STRING "type of library to make for boost_numpy")
+endif()
+
 # variable controlling building of documentation
-set(BUILD_DOCS ON CACHE BOOL "Build Boost.NumPy Documentation")
+set(BUILD_DOCS OFF CACHE BOOL "Build Boost.NumPy Documentation")
 
 # logic for configuring documentation generation
 if(BUILD_DOCS)
