@@ -23,7 +23,8 @@ add_custom_target(doc-html
 SET_PROPERTY(TARGET doc-html PROPERTY FOLDER "doc")
 
 install(DIRECTORY ${PROJECT_BINARY_DIR}/html
-  DESTINATION boost.numpy/doc
+  DESTINATION share/doc/libboost_numpy 
+  OPTIONAL
   )
 
 if (PDFLATEX_COMPILER)
@@ -48,7 +49,8 @@ if (PDFLATEX_COMPILER)
   SET_PROPERTY(TARGET doc-pdf PROPERTY FOLDER "doc")
 
   install(FILES ${PROJECT_BINARY_DIR}/latex/BoostNumPy.pdf
-    DESTINATION boost.numpy/doc
+    DESTINATION share/doc/libboost_numpy
+    OPTIONAL
     )
 
 endif()
