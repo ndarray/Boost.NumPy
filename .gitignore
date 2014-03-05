@@ -1,8 +1,13 @@
 config.log
+cmake_install.cmake
+CMakeCache.txt
+Makefile
+CMakeFiles
+CTestTestFile.cmake
 .sconf_temp
 .sconsign.dblite
-*.os
-*.succeeded
+bin
+libs
 libs/numpy/example/dtype
 libs/numpy/example/fromdata
 libs/numpy/example/ndarray
@@ -12,5 +17,7 @@ libs/numpy/example/wrap
 build
 build-vc90
 build-vc100
+*.os
+*.succeeded
 *~
 \#*\#
