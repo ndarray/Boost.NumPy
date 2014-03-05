@@ -5,7 +5,8 @@ CPackConfig.cmake
 CPackSourceConfig.cmake
 Makefile
 CMakeFiles
-CTestTestFile.cmake
+CTestTestfile.cmake
+_CPack_Packages
 .sconf_temp
 .sconsign.dblite
 bin
@@ -19,6 +20,9 @@ libs/numpy/example/wrap
 build
 build-vc90
 build-vc100
+boost-numpy-*-Linux.deb
+boost.numpy-*-Linux.sh
+install_manifest.txt
 *.os
 *.succeeded
 *~

@@ -116,4 +116,10 @@ if (BUILD_DOCS)
 endif()
 
 # Building a package with CPack.
+set(CPACK_PACKAGE_NAME boost-numpy)
+set(CPACK_PACKAGE_VERSION 24)
+set(CPACK_PACKAGE_CONTACT "ndarray-dev@googlegroups.com")
+set(CPACK_DEBIAN_PACKAGE_DEPENDS "python-dev, python-numpy, libboost-python-dev")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Boost.NumPy is an extension for Boost.Python that adds NumPy support.")
+set(CPACK_PACKAGE_DESCRIPTION "It is intended as a replacement for the old numeric support in Boost.Python proper, which is now out-of-date and does not support C/C++ pointer access to the data.  Because it builds against the NumPy headers and hence has a dependency that Boost.Python does not, it is intended to be built as a separate library.  This is also not intended to be a high-level C++ array library; it would be more accurate to consider it a C++ NumPy API, with the intent of making the NumPy C-API available in a form that is safer and more convenient for C++ users (and particularly those using Boost.Python, of course).")
 include(CPack)
