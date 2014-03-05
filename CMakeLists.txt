@@ -1,6 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-
-project( boost.numpy )
+project(boost.numpy)
 
 # put our local cmake find scripts at the beginning of the cmake
 # module search path
@@ -28,7 +27,7 @@ find_package(NumPy REQUIRED)
 # set(Boost_USE_STATIC_LIBS ON)
 # set(Boost_USE_MULTITHREADED ON) 
 # set(Boost_USE_STATIC_RUNTIME ON)
-FIND_PACKAGE(Boost COMPONENTS python REQUIRED)
+find_package(Boost COMPONENTS python REQUIRED)
 
 message( STATUS "found boost:"
   "\nINCLUDE: ${Boost_INCLUDE_DIRS}"
@@ -52,26 +51,26 @@ set(BUILD_DOCS OFF CACHE BOOL "Build Boost.NumPy Documentation")
 # logic for configuring documentation generation
 if(BUILD_DOCS)
   # find sphinx
-  EXECUTE_PROCESS(COMMAND ${PYTHON_EXECUTABLE} -c "import sphinx; print sphinx.__version__"
+  execute_process(COMMAND ${PYTHON_EXECUTABLE} -c "import sphinx; print sphinx.__version__"
     RESULT_VARIABLE SPHINX_PROCESS
     OUTPUT_VARIABLE SPHINX_VERSION
     OUTPUT_STRIP_TRAILING_WHITESPACE)
   
   set(HAVE_SPHINX 0)
   if(SPHINX_PROCESS EQUAL 0)
-    FIND_PROGRAM(SPHINX_BUILD sphinx-build)
+    find_program(SPHINX_BUILD sphinx-build)
     if(SPHINX_BUILD)
       set(HAVE_SPHINX 1)
       message(STATUS "    Found Sphinx ${SPHINX_VERSION}: ${SPHINX_BUILD}")
     else()
       # sphinx is required to generate documention, so it is an error
       # if we cannot find it
-      MESSAGE(SEND_ERROR "must be able to find sphinx-build when BUILD_DOCS is enabled")
+      message(SEND_ERROR "must be able to find sphinx-build when BUILD_DOCS is enabled")
     endif()
   endif()
   
   # find pdflatex, which is only required for doc-pdf
-  FIND_PACKAGE(LATEX)
+  find_package(LATEX)
   if (PDFLATEX_COMPILER)
     message( STATUS "Found PDFLATEX_COMPILER=${PDFLATEX_COMPILER}" )
   else()
@@ -80,15 +79,15 @@ if(BUILD_DOCS)
 endif()
 
 # compiler definitions for non-windows builds
-if (NOT WIN32)
+if (not WIN32)
   add_definitions(-fPIC)
 endif()
 
 # enable ctest targets
-ENABLE_TESTING()
+enable_testing()
 
 # turn on visual studio solution folders
-SET_PROPERTY(GLOBAL PROPERTY USE_FOLDERS ON)
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 # global settings for include paths
 include_directories(
@@ -107,12 +106,12 @@ install(DIRECTORY boost
   )
 
 # add submodules
-ADD_SUBDIRECTORY(libs/numpy/src)
-ADD_SUBDIRECTORY(libs/numpy/example)
-ADD_SUBDIRECTORY(libs/numpy/test)
+add_subdirectory(libs/numpy/src)
+add_subdirectory(libs/numpy/example)
+add_subdirectory(libs/numpy/test)
 
 if (BUILD_DOCS)
-  ADD_SUBDIRECTORY(libs/numpy/doc)
+  add_subdirectory(libs/numpy/doc)
 endif()
 
 # Building a package with CPack.
