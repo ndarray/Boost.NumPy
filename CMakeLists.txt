@@ -116,5 +116,4 @@ if (BUILD_DOCS)
 endif()
 
 # Building a package with CPack.
-include(cpack)
-
+include(CPack)
