@@ -1,13 +1,15 @@
 config.log
 cmake_install.cmake
 CMakeCache.txt
+CPackConfig.cmake
+CPackSourceConfig.cmake
 Makefile
 CMakeFiles
 CTestTestFile.cmake
 .sconf_temp
 .sconsign.dblite
 bin
-libs
+lib
 libs/numpy/example/dtype
 libs/numpy/example/fromdata
 libs/numpy/example/ndarray

@@ -115,4 +115,6 @@ if (BUILD_DOCS)
   ADD_SUBDIRECTORY(libs/numpy/doc)
 endif()
 
+# Building a package with CPack.
+include(cpack)
 
