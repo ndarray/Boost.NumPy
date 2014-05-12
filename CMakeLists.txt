@@ -79,9 +79,7 @@ if(BUILD_DOCS)
 endif()
 
 # compiler definitions for non-windows builds
-if (not WIN32)
-  add_definitions(-fPIC)
-endif()
+add_definitions(-fPIC)
 
 # enable ctest targets
 enable_testing()
