@@ -120,7 +120,7 @@ public:
             return obj;
         }
 	}
-    return obj;
+    return 0;
   }
 
   static void convert(PyObject * obj, pyconv::rvalue_from_python_stage1_data* data) {
