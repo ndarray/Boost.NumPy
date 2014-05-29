@@ -10,9 +10,14 @@ import unittest
 import numpy
 
 class DtypeTestCase(unittest.TestCase):
-    
+
     def assertEquivalent(self, a, b):
         return self.assert_(dtype_mod.equivalent(a, b), "%r is not equivalent to %r")
+
+    def testIssue30(self):
+        a1 = numpy.array([1], dtype=numpy.int64)
+        i2 = dtype_mod.accept_ulong(a1[0])
+        self.assertEqual(a1[0], i2)
 
     def testIntegers(self):
         for bits in (8, 16, 32, 64):

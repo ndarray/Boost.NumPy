@@ -36,6 +36,8 @@ BOOST_PYTHON_MODULE(dtype_mod)
   p::def("accept_ushort", accept<unsigned short>);
   p::def("accept_intc", accept<int>);
   p::def("accept_uintc", accept<unsigned int>);
+  p::def("accept_long", accept<long>);
+  p::def("accept_ulong", accept<unsigned long>);
   // floats and complex
   p::def("accept_float32", accept<float>);
   p::def("accept_complex64", accept< std::complex<float> >);
