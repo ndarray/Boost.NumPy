@@ -61,6 +61,7 @@ def makeEnvironment(variables):
         env.AppendUnique(RPATH=custom_rpath)
     if env['CC'] == 'cl':
         env.AppendUnique(CPPFLAGS=['/MD', '/EHsc'])
+        env.AppendUnique(LINKFLAGS=['/DEBUG'])
     return env
 
 def setupTargets(env, root="."):
@@ -94,7 +95,7 @@ def setupTargets(env, root="."):
     if not install_lib:
         install_lib = os.path.join(prefix, "lib")
     env.Alias("install", env.Install(install_lib, lib))
-    for header in ("dtype.hpp", "invoke_matching.hpp", "matrix.hpp", 
+    for header in ("dtype.hpp", "invoke_matching.hpp", "matrix.hpp",
                    "ndarray.hpp", "numpy_object_mgr_traits.hpp",
                    "scalars.hpp", "ufunc.hpp",):
         env.Alias("install", env.Install(os.path.join(install_headers, "boost", "numpy"),
