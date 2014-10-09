@@ -36,7 +36,7 @@ def setupOptions():
     AddOption("--with-boost-include", dest="boost_include", type="string", nargs=1, action="store",
               metavar="DIR", help="location of Boost header files", default=os.environ.get("BOOST_DIR"))
     AddOption("--with-boost-lib", dest="boost_lib", type="string", nargs=1, action="store",
-              metavar="DIR", help="location of Boost libraries", default=os.path.join(os.environ.get("BOOST_DIR"), 'stage', 'lib'))
+              metavar="DIR", help="location of Boost libraries")
     AddOption("--rpath", dest="custom_rpath", type="string", action="append",
               help="runtime link paths to add to libraries and executables; may be passed more than once")
     AddOption("--boost-python-lib", dest="boost_python_lib", type="string", action="store",
