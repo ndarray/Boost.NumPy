@@ -44,7 +44,7 @@ def setupOptions():
     variables = Variables()
     defaultflags = "-O2 -g"
     if os.name == 'nt':
-        defaultflags = "/O2 /DEBUG"
+        defaultflags = "/O2"
     variables.Add("CCFLAGS", default=os.environ.get("CCFLAGS", defaultflags), help="compiler flags")
     return variables
 
@@ -60,8 +60,11 @@ def makeEnvironment(variables):
     if custom_rpath is not None:
         env.AppendUnique(RPATH=custom_rpath)
     if env['CC'] == 'cl':
-        env.AppendUnique(CPPFLAGS=['/MD', '/EHsc'])
-        env.AppendUnique(LINKFLAGS=['/DEBUG'])
+        # C++ exception handling,
+        # multithread-supporting, dynamically linked system libraries,
+        # generate debug information,
+        # dynamic link library.
+        env.AppendUnique(CPPFLAGS=['/EHsc', '/MD', '/Zi', '/LD'])
     return env
 
 def setupTargets(env, root="."):
