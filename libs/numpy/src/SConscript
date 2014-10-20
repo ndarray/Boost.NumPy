@@ -7,24 +7,7 @@
 
 import sys
 import os
-VERSION = sys.version_info.major
-import sysconfig
-if os.name == 'nt':
-    EXT_SUFFIX = '.dll'
-    LIB_SUFFIX = '.lib'
-else:
-    EXT_SUFFIX = sysconfig.get_config_var("EXT_SUFFIX")
-    LIB_SUFFIX = EXT_SUFFIX
-
-if VERSION == 2 and EXT_SUFFIX == 'None' or EXT_SUFFIX==None:
-	EXT_SUFFIX = '.so'
-elif VERSION == 3 and EXT_SUFFIX == b'None' or EXT_SUFFIX==None:
-	EXT_SUFFIX = '.so'
-print ('EXT:', EXT_SUFFIX)
-
-OBJ_SUFFIX = EXT_SUFFIX.replace ('.so', '.os')
-
-Import("env")
+Import(['env', 'EXT_SUFFIX', 'LIB_SUFFIX', 'OBJ_SUFFIX'])
 
 LIB_BOOST_NUMPY = ('boost_numpy' + LIB_SUFFIX)
 mods = [g.name.replace('.cpp', '') for g in Glob("*.cpp")]
