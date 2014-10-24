@@ -89,7 +89,7 @@ public:
   ndarray copy() const;
 
   /// @brief Return the size of the nth dimension.
-  std::size_t const shape(int n) const { return static_cast<std::size_t>(get_shape()[n]); }
+  Py_ssize_t const shape(int n) const { return get_shape()[n]; }
 
   /// @brief Return the stride of the nth dimension.
   Py_ssize_t const strides(int n) const { return get_strides()[n]; }

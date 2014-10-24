@@ -3,7 +3,7 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 #ifdef _MSC_VER
-#include <cstdint>
+#include <boost/cstdint.hpp>
 #endif
 #define BOOST_NUMPY_INTERNAL
 #include <boost/numpy/internal.hpp>
@@ -181,8 +181,8 @@ void dtype::register_scalar_converters() {
   // Since the npy_(u)int32 types are defined as long types and treated
   // as being different from the int32 types, these converters must be declared
   // explicitely.
-  array_scalar_converter<std::uint32_t>::declare();
-  array_scalar_converter<std::int32_t>::declare();
+  array_scalar_converter<boost::uint32_t>::declare();
+  array_scalar_converter<boost::int32_t>::declare();
 #endif
   array_scalar_converter<npy_uint64>::declare();
   array_scalar_converter<npy_int64>::declare();
