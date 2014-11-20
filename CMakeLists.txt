@@ -31,12 +31,17 @@ find_package(NumPy REQUIRED)
 # set(Boost_USE_STATIC_LIBS ON)
 # set(Boost_USE_MULTITHREADED ON) 
 # set(Boost_USE_STATIC_RUNTIME ON)
-FIND_PACKAGE(Boost COMPONENTS python REQUIRED)
+if(${PYTHON_VERSION_STRING} GREATER 3.0)
+  message(STATUS "Use Python3")
+  find_package(Boost COMPONENTS python3 REQUIRED)
+else()
+  message(STATUS "Use Python2")
+  find_package(Boost COMPONENTS python REQUIRED)
+endif()
 
-message( STATUS "found boost:"
-  "\nINCLUDE: ${Boost_INCLUDE_DIRS}"
-  "\nLIB: ${Boost_LIBRARIES}"
-)
+message( STATUS "Paths of Boost:")
+message( STATUS "Include  : " ${Boost_INCLUDE_DIRS})
+message( STATUS "Libraries: " ${Boost_LIBRARIES})
 
 # add_definitions( -DBOOST_ALL_NO_LIB )
 # In some cases, you may need to explicitly specify that a dynamic Boost is used; if so use:
