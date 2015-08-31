@@ -1,28 +1,26 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(boost.numpy)
 
-# put our local cmake find scripts at the beginning of the cmake
-# module search path
+# Put our local cmake find scripts at the beginning of the CMake
+# module search path.
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/libs/numpy/cmake ${CMAKE_MODULE_PATH})
 
-# configure output folders so artifacts are built into a single set of
+# Configure output folders so artifacts are built into a single set of
 # top-level folders rather than the default cmake build structure that
 # matches the source tree.
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib 
     CACHE PATH "Output directory for static libraries.")
-
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib
     CACHE PATH "Output directory for shared libraries.")
-
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
     CACHE PATH "Output directory for executables and DLL's.")
 
-# find required python packages
+# Find required python packages.
 find_package(PythonInterp REQUIRED)
 find_package(PythonLibsNew REQUIRED)
 find_package(NumPy REQUIRED)
 
-# find boost
+# Find Boost.
 # 
 # set(Boost_USE_STATIC_LIBS ON)
 # set(Boost_USE_MULTITHREADED ON) 
@@ -38,19 +36,19 @@ message( STATUS "found boost:"
 # In some cases, you may need to explicitly specify that a dynamic Boost is used; if so use:
 # add_definitions( -DBOOST_ALL_DYN_LINK )
 
-# variable controlling whether the boost_numpy is a shared or static library
+# Variable controlling whether the boost_numpy is a shared or static library.
 if (WIN32)
   set(LIBRARY_TYPE STATIC CACHE STRING "type of library to make for boost_numpy")
 else()
   set(LIBRARY_TYPE SHARED CACHE STRING "type of library to make for boost_numpy")
 endif()
 
-# variable controlling building of documentation
+# Variable controlling building of documentation.
 set(BUILD_DOCS OFF CACHE BOOL "Build Boost.NumPy Documentation")
 
-# logic for configuring documentation generation
+# Logic for configuring documentation generation.
 if(BUILD_DOCS)
-  # find sphinx
+  # Find sphinx executable.
   execute_process(COMMAND ${PYTHON_EXECUTABLE} -c "import sphinx; print sphinx.__version__"
     RESULT_VARIABLE SPHINX_PROCESS
     OUTPUT_VARIABLE SPHINX_VERSION
@@ -63,13 +61,13 @@ if(BUILD_DOCS)
       set(HAVE_SPHINX 1)
       message(STATUS "    Found Sphinx ${SPHINX_VERSION}: ${SPHINX_BUILD}")
     else()
-      # sphinx is required to generate documention, so it is an error
-      # if we cannot find it
+      # Sphinx is required to generate documention, so it is an error
+      # if we cannot find it.
       message(SEND_ERROR "must be able to find sphinx-build when BUILD_DOCS is enabled")
     endif()
   endif()
   
-  # find pdflatex, which is only required for doc-pdf
+  # Find pdflatex, which is only required for doc-pdf.
   find_package(LATEX)
   if (PDFLATEX_COMPILER)
     message( STATUS "Found PDFLATEX_COMPILER=${PDFLATEX_COMPILER}" )
@@ -78,16 +76,16 @@ if(BUILD_DOCS)
   endif()
 endif()
 
-# compiler definitions for non-windows builds
+# Compiler definitions for non-Windows builds.
 add_definitions(-fPIC)
 
-# enable ctest targets
+# Enable CTest targets.
 enable_testing()
 
-# turn on visual studio solution folders
+# Turn on Visual Studio solution folders.
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
-# global settings for include paths
+# Global settings for include paths.
 include_directories(
   ${PROJECT_SOURCE_DIR}
   ${PYTHON_INCLUDE_DIRS}
@@ -95,7 +93,7 @@ include_directories(
   ${Boost_INCLUDE_DIRS} 
   )
 
-# install headers
+# Install headers.
 install(DIRECTORY boost
     DESTINATION "include"
     FILES_MATCHING
@@ -103,14 +101,35 @@ install(DIRECTORY boost
     ${INSTALL_PERMISSIONS_SRC}
   )
 
-# add submodules
+# Add submodules.
 add_subdirectory(libs/numpy/src)
 add_subdirectory(libs/numpy/example)
 add_subdirectory(libs/numpy/test)
 
-if (BUILD_DOCS)
+if(BUILD_DOCS)
   add_subdirectory(libs/numpy/doc)
 endif()
+
+# Create CMake package configuration.
+set(INCLUDE_INSTALL_DIR include/ CACHE PATH
+    "The subdirectory relative to the install prefix where header will be installed (default prefix/include)")
+set(LIB_INSTALL_DIR lib/ CACHE PATH
+    "The subdirectory relative to the install prefix where libraries will be installed (default is prefix/lib)")
+set(SYSCONFIG_INSTALL_DIR etc/ CACHE PATH
+    "The subdirectory relative to the install prefix where sysconfig will be installed (default prefix/etc)")
+
+include(CMakePackageConfigHelpers)
+configure_package_config_file(cmake/BoostNumpyConfig.cmake.in
+    ${CMAKE_CURRENT_BINARY_DIR}/BoostNumpyConfig.cmake
+    INSTALL_DESTINATION ${LIB_INSTALL_DIR}/BoostNumpy/cmake
+    PATH_VARS INCLUDE_INSTALL_DIR SYSCONFIG_INSTALL_DIR)
+write_basic_package_version_file(
+    ${CMAKE_CURRENT_BINARY_DIR}/BoostNumpyConfigVersion.cmake
+    VERSION 0.24.0
+    COMPATIBILITY SameMajorVersion)
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/BoostNumpyConfig.cmake
+              ${CMAKE_CURRENT_BINARY_DIR}/BoostNumpyConfigVersion.cmake
+        DESTINATION ${LIB_INSTALL_DIR}/BoostNumpy/cmake)
 
 # Building a package with CPack.
 set(CPACK_PACKAGE_NAME boost-numpy)
