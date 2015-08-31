@@ -4,6 +4,5 @@ set(BoostNumpy_VERSION x.y.z)
 
 set_and_check(BoostNumpy_INCLUDE_DIR "@PACKAGE_INCLUDE_INSTALL_DIR@")
 set_and_check(BoostNumpy_LIB_DIR "@PACKAGE_LIB_INSTALL_DIR@")
-set_and_check(BoostNumpy_SYSCONFIG_DIR "@PACKAGE_SYSCONFIG_INSTALL_DIR@")
 
 check_required_components(boost.numpy_eigen)

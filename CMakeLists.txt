@@ -115,14 +115,12 @@ set(INCLUDE_INSTALL_DIR include/ CACHE PATH
     "The subdirectory relative to the install prefix where header will be installed (default prefix/include)")
 set(LIB_INSTALL_DIR lib/ CACHE PATH
     "The subdirectory relative to the install prefix where libraries will be installed (default is prefix/lib)")
-set(SYSCONFIG_INSTALL_DIR etc/ CACHE PATH
-    "The subdirectory relative to the install prefix where sysconfig will be installed (default prefix/etc)")
 
 include(CMakePackageConfigHelpers)
 configure_package_config_file(cmake/BoostNumpyConfig.cmake.in
     ${CMAKE_CURRENT_BINARY_DIR}/BoostNumpyConfig.cmake
     INSTALL_DESTINATION ${LIB_INSTALL_DIR}/BoostNumpy/cmake
-    PATH_VARS INCLUDE_INSTALL_DIR SYSCONFIG_INSTALL_DIR)
+    PATH_VARS INCLUDE_INSTALL_DIR LIB_INSTALL_DIR)
 write_basic_package_version_file(
     ${CMAKE_CURRENT_BINARY_DIR}/BoostNumpyConfigVersion.cmake
     VERSION 0.24.0
