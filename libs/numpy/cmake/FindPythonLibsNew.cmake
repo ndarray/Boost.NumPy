@@ -145,7 +145,7 @@ else()
     # Probably this needs to be more involved. It would be nice if the config
     # information the python interpreter itself gave us were more complete.
     find_library(PYTHON_LIBRARY
-        NAMES "python${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}"
+        NAMES "python${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}" "python${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}m"
         PATHS ${_PYTHON_LIBS_SEARCH}
         NO_SYSTEM_ENVIRONMENT_PATH)
 endif()
