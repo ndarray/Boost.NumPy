@@ -1,10 +1,12 @@
 # custom macro with most of the redundant code for making a python example module
 macro( addPythonExe _name _srccpp )
   ADD_EXECUTABLE(${_name} ${_srccpp})
-  
-  # make the pyd library link against boost_numpy python and boost
-  TARGET_LINK_LIBRARIES(${_name} boost_numpy)
-  
+  if(${PYTHON_VERSION_STRING} GREATER 3.0)
+    TARGET_LINK_LIBRARIES(${_name} boost_numpy)
+  else()
+    TARGET_LINK_LIBRARIES(${_name} boost_numpy2.7)
+  endif()
+
   # put the example target into a VS solution folder named example (should
   # be a no-op for Linux)
   SET_PROPERTY(TARGET ${_name} PROPERTY FOLDER "example")
@@ -12,10 +14,10 @@ endmacro()
 
 macro( addPythonMod _name _srccpp )
   PYTHON_ADD_MODULE(${_name} ${_srccpp})
-  
+
   # make the pyd library link against boost_numpy python and boost
   TARGET_LINK_LIBRARIES(${_name} boost_numpy)
-  
+
   # put the example target into a VS solution folder named example (should
   # be a no-op for Linux)
   SET_PROPERTY(TARGET ${_name} PROPERTY FOLDER "example")
@@ -45,7 +47,7 @@ addPythonExe(wrap wrap.cpp)
 #   )
 #
 # # install source file using the extension module
-# install(FILES demo_gaussian.py 
+# install(FILES demo_gaussian.py
 #   DESTINATION ${DEST_EXAMPLE}
 #   ${INSTALL_PERMSSIONS_SRC}
 #   )

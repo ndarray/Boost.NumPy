@@ -24,8 +24,12 @@ macro( addPythonTest _name _srcpy )
     ${CMAKE_CURRENT_BINARY_DIR}/${_srcpy}
   )
 
-  # make the pyd library link against boost_numpy python and boost
+# make the pyd library link against boost_numpy python and boost
+if(${PYTHON_VERSION_STRING} GREATER 3.0)
   TARGET_LINK_LIBRARIES(${_name} boost_numpy)
+else()
+  TARGET_LINK_LIBRARIES(${_name} boost_numpy2.7)
+endif()
 
   # make a test of the module using the python source file in the test directory
   ADD_TEST(${_name} ${TestCommand} ${CMAKE_CURRENT_BINARY_DIR}/${_srcpy})

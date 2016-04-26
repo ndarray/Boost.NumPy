@@ -12,7 +12,7 @@ set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/libs/numpy/cmake ${CMAKE_MODULE_PATH
 # configure output folders so artifacts are built into a single set of
 # top-level folders rather than the default cmake build structure that
 # matches the source tree.
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib 
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib
     CACHE PATH "Output directory for static libraries.")
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib
@@ -23,13 +23,13 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
 
 # find required python packages
 find_package(PythonInterp REQUIRED)
-find_package(PythonLibsNew REQUIRED)
+find_package(PythonLibs REQUIRED)
 find_package(NumPy REQUIRED)
 
 # find boost
-# 
+#
 # set(Boost_USE_STATIC_LIBS ON)
-# set(Boost_USE_MULTITHREADED ON) 
+# set(Boost_USE_MULTITHREADED ON)
 # set(Boost_USE_STATIC_RUNTIME ON)
 if(${PYTHON_VERSION_STRING} GREATER 3.0)
   message(STATUS "Using Python3")
@@ -74,7 +74,7 @@ if(BUILD_DOCS)
     RESULT_VARIABLE SPHINX_PROCESS
     OUTPUT_VARIABLE SPHINX_VERSION
     OUTPUT_STRIP_TRAILING_WHITESPACE)
-  
+
   set(HAVE_SPHINX 0)
   if(SPHINX_PROCESS EQUAL 0)
     FIND_PROGRAM(SPHINX_BUILD sphinx-build)
@@ -87,7 +87,7 @@ if(BUILD_DOCS)
       MESSAGE(SEND_ERROR "must be able to find sphinx-build when BUILD_DOCS is enabled")
     endif()
   endif()
-  
+
   # find pdflatex, which is only required for doc-pdf
   FIND_PACKAGE(LATEX)
   if (PDFLATEX_COMPILER)
@@ -115,7 +115,7 @@ include_directories(
   ${PROJECT_SOURCE_DIR}
   ${PYTHON_INCLUDE_DIRS}
   ${NUMPY_INCLUDE_DIRS}
-  ${Boost_INCLUDE_DIRS} 
+  ${Boost_INCLUDE_DIRS}
   )
 
 # install headers
@@ -138,5 +138,3 @@ endif()
 if (BUILD_DOCS)
   ADD_SUBDIRECTORY(libs/numpy/doc)
 endif()
-
-

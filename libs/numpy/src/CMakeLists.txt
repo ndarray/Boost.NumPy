@@ -1,4 +1,11 @@
-add_library(boost_numpy ${LIBRARY_TYPE}
+if(${PYTHON_VERSION_STRING} GREATER 3.0)
+  set(LIBNAME boost_numpy)
+else()
+  set(LIBNAME boost_numpy2.7)
+endif()
+
+
+add_library(${LIBNAME} ${LIBRARY_TYPE}
   # header files
   ../../../boost/numpy/dtype.hpp
   ../../../boost/numpy/internal.hpp
@@ -17,10 +24,10 @@ add_library(boost_numpy ${LIBRARY_TYPE}
   ufunc.cpp
   numpy.cpp
 )
-target_link_libraries(boost_numpy ${Boost_LIBRARIES} ${PYTHON_LIBRARIES})
+target_link_libraries(${LIBNAME} ${Boost_LIBRARIES} ${PYTHON_LIBRARIES})
 
-install(TARGETS boost_numpy 
-  ARCHIVE DESTINATION lib 
-  LIBRARY DESTINATION lib 
+install(TARGETS ${LIBNAME}
+  ARCHIVE DESTINATION lib
+  LIBRARY DESTINATION lib
   PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE
 )
