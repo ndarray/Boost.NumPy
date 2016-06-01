@@ -9,6 +9,18 @@ set(BUILD_EXAMPLES ON CACHE BOOL "Build Boost.NumPy Examples")
 # module search path
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/libs/numpy/cmake ${CMAKE_MODULE_PATH})
 
+IF (NOT DEFINED LIB_SUFFIX)
+	EXECUTE_PROCESS(
+		COMMAND uname -m
+		COMMAND tr -d '\n'
+		OUTPUT_VARIABLE ARCH
+	)
+	message(STATUS "'"  ${ARCH}  "'")
+	IF (ARCH STREQUAL x86_64)
+		SET(LIB_SUFFIX 64)
+	ENDIF (ARCH STREQUAL x86_64)
+ENDIF (NOT DEFINED LIB_SUFFIX)
+
 # configure output folders so artifacts are built into a single set of
 # top-level folders rather than the default cmake build structure that
 # matches the source tree.
