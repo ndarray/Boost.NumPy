@@ -15,7 +15,7 @@ IF (NOT DEFINED LIB_SUFFIX)
 		COMMAND tr -d '\n'
 		OUTPUT_VARIABLE ARCH
 	)
-	message(STATUS "'"  ${ARCH}  "'")
+	message(STATUS "Detected architecture '"  ${ARCH}  "'")
 	IF (ARCH STREQUAL x86_64)
 		SET(LIB_SUFFIX 64)
 	ENDIF (ARCH STREQUAL x86_64)
