@@ -26,11 +26,13 @@ namespace numpy {
  *  This must be called before using anything in boost.numpy;
  *  It should probably be the first line inside BOOST_PYTHON_MODULE.
  *
+ *  This returns false and sets a Python exception on failure.
+ *
  *  @internal This just calls the Numpy C-API functions "import_array()"
  *            and "import_ufunc()", and then calls
  *            dtype::register_scalar_converters().
  */
-void initialize(bool register_scalar_converters=true);
+bool initialize(bool register_scalar_converters=true);
 
 } // namespace boost::numpy
 } // namespace boost
