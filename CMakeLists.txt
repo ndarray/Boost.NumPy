@@ -23,7 +23,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
 
 # find required python packages
 find_package(PythonInterp REQUIRED)
-find_package(PythonLibsNew REQUIRED)
+find_package(PythonLibs REQUIRED)
 find_package(NumPy REQUIRED)
 
 # find boost
