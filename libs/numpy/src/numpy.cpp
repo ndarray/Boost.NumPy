@@ -12,22 +12,40 @@ namespace boost
 namespace numpy 
 {
 
-#if PY_MAJOR_VERSION == 2
-static void wrap_import_array() {
-    import_array();
-}
-#else
-static void * wrap_import_array() {
-    import_array();
-}
-#endif
+// NumPy's import_* macros always return if they encounter an error,
+// but in Python 2 there's no return value, while Python 3 returns
+// null on an error.  The machinery below produces the same behavior
+// on both Python versions: initialize returns false with an exception
+// raised if there is an exception.
 
-void initialize(bool register_scalar_converters) 
+static
+#if PY_MAJOR_VERSION == 2
+void
+#else
+PyObject *
+#endif
+wrap_imports()
 {
-  wrap_import_array();
+  import_array();
   import_ufunc();
+#if PY_MAJOR_VERSION > 2
+  Py_RETURN_NONE;
+#endif
+}
+
+bool initialize(bool register_scalar_converters) 
+{
+#if PY_MAJOR_VERSION == 2
+  wrap_imports();
+  if (PyErr_Occurred()) return false;
+#else
+  PyObject * r = wrap_imports();
+  if (!r) return false;
+  Py_DECREF(r);
+#endif
   if (register_scalar_converters)
 	dtype::register_scalar_converters();
+  return true;
 }
 
 }
