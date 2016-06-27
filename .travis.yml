@@ -1,0 +1,22 @@
+sudo: required
+dist: trusty
+language: cpp
+
+before_install:
+  - export PATH=$(echo $PATH | tr ':' "\n" | sed '/\/opt\/python/d' | tr "\n" ":" | sed "s|::|:|g")
+  - sudo apt-get -qq update
+  - sudo apt-get install -y libboost-python-dev python-numpy python3-numpy libpython3-dev python-sphinx
+  - sudo ln -s /usr/lib/x86_64-linux-gnu/libboost_python-py34.so /usr/lib/x86_64-linux-gnu/libboost_python3.so
+
+script:
+  - mkdir build
+  - cd build
+  - cmake -DPYTHON_EXECUTABLE=$PYTHON .. && make && make test ARGS="-V"
+  - cd ../libs/numpy/doc
+  - make html
+  - cd ../../../
+  - if [ "$PYTHON" == "/usr/bin/python" ]; then scons; fi
+
+env:
+  - PYTHON=/usr/bin/python
+  - PYTHON=/usr/bin/python3
