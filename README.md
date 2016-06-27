@@ -22,9 +22,14 @@ on the priority list for any of the original authors.
 
 ## INSTALLATION
 
-We have provided three build systems: Boost.Build, SCons, and CMake
-build system.  At the moment, we recommend using SCons or CMake on
-Linux and CMake on Windows.
+We have provided two build systems: SCons and CMake build system.
+We reconmmend using CMake for all new users, and for anyone using
+Python 3 (SCons itself does not support Python 3, and our SCons
+build is restricted to building against the version of Python that
+executes SCons.
+
+Please see `libs/numpy/doc/cmakeBuild.rst` for more information on
+building with CMake.
 
 Building with SCons should be as simple as running `scons` and `scons
 install`, but you may need to use the `--with-boost*` options (see
@@ -34,9 +39,6 @@ SConsChecks submodule must be initialized by git before building
 by running
 
     git submodule update --init
-
-Please see `libs/numpy/doc/cmakeBuild.rst` for more information on
-building with CMake.
 
 
 ## DOCUMENTATION
