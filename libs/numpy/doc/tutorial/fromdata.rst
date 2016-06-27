@@ -6,16 +6,16 @@ The from_data method makes this possible.
 
 Like before, first get the necessary headers, setup the namespaces and initialize the Python runtime and numpy module::
 
-	#include <boost/numpy.hpp>
-	#include <iostream>
+  #include <boost/numpy.hpp>
+  #include <iostream>
 
-	namespace p = boost::python;
-	namespace np = boost::numpy;
+  namespace p = boost::python;
+  namespace np = boost::numpy;
 
-	int main(int argc, char **argv)
-	{
-	  Py_Initialize();
-	  np::initialize();
+  int main(int argc, char **argv)
+  {
+    Py_Initialize();
+    np::initialize();
 
 Create an array in C++ , and pass the pointer to it to the from_data method to create an ndarray::
 
