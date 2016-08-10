@@ -8,16 +8,16 @@ This tutorial will introduce you to some of the ways in which you can create nda
 
 First, as before, initialise the necessary namepaces and runtimes ::
 
-	#include <boost/numpy.hpp>
-	#include <iostream>
+  #include <boost/numpy.hpp>
+  #include <iostream>
 
-	namespace p = boost::python;
-	namespace np = boost::numpy;
+  namespace p = boost::python;
+  namespace np = boost::numpy;
 
-	int main(int argc, char **argv)
-	{
-	  Py_Initialize();
-	  np::initialize();
+  int main(int argc, char **argv)
+  {
+    Py_Initialize();
+    np::initialize();
 
 Let's now create an ndarray from a simple tuple. We first create a tuple object, and then pass it to the array method, to generate the necessary tuple ::
 
