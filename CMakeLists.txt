@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 2.8.12)
 
 project( boost.numpy )
 
@@ -43,6 +43,8 @@ find_package(NumPy REQUIRED)
 # set(Boost_USE_STATIC_LIBS ON)
 # set(Boost_USE_MULTITHREADED ON) 
 # set(Boost_USE_STATIC_RUNTIME ON)
+set(CMAKE_MACOSX_RPATH 1)
+
 if(${PYTHON_VERSION_STRING} GREATER 3.0)
   message(STATUS "Using Python3")
   find_package(Boost COMPONENTS python3 REQUIRED)
