@@ -1,4 +1,4 @@
-# Boost.NumPy
+# Boost.NumPy [![Build Status](https://travis-ci.org/ndarray/Boost.NumPy.svg?branch=master)](https://travis-ci.org/ndarray/Boost.NumPy)
 
 Boost.NumPy is an extension for Boost.Python that adds NumPy support.
 
