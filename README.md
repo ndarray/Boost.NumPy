@@ -1,24 +1,14 @@
 # Boost.NumPy [![Build Status](https://travis-ci.org/ndarray/Boost.NumPy.svg?branch=master)](https://travis-ci.org/ndarray/Boost.NumPy)
 
-Boost.NumPy is an extension for Boost.Python that adds NumPy support.
+> # THIS PACKAGE IS NOW DEPRECATED IN FAVOR OF NUMPY SUPPORT INCLUDED DIRECTLY IN BOOST.PYTHON.
+>
+> NumPy support is scheduled to be included in Boost release 1.63, and is already available on
+> the Boost.Python master branch (https://github.com/boostorg/python/tree/master).  The interface
+> is the same as Boost.Numpy, but in a different namespace.
+>
+> There are currently no plans for further development on this independent package.
 
-It is intended as a replacement for the old numeric support in
-Boost.Python proper, which is now out-of-date and does not support
-C/C++ pointer access to the data.  Because it builds against the NumPy
-headers and hence has a dependency that Boost.Python does not, it is
-intended to be built as a separate library.  This is also not intended
-to be a high-level C++ array library; it would be more accurate to
-consider it a C++ NumPy API, with the intent of making the NumPy C-API
-available in a form that is safer and more convenient for C++ users
-(and particularly those using Boost.Python, of course).
-
-*THIS IS NOT AN OFFICIAL BOOST LIBRARY*
-
-...we're just calling it Boost.NumPy right now because that clearly
-indicates that it's for Boost.Python and NumPy.  We may
-propose it for inclusion in Boost eventually, but that's not high
-on the priority list for any of the original authors.
-
+Boost.NumPy is an extension for Boost.Python < v1.63 that adds NumPy support.
 
 ## INSTALLATION
 
