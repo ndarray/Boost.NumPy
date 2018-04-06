@@ -45,13 +45,30 @@ find_package(NumPy REQUIRED)
 # set(Boost_USE_STATIC_RUNTIME ON)
 set(CMAKE_MACOSX_RPATH 1)
 
+# Add some logic to work around distribution-specific naming of boost
+# python libraries. This is a particular problem when trying to use a 
+# python version on a system that is not the default.
+STRING(REPLACE "." ";" BOOST_PYTHON_VERSION ${PYTHON_VERSION_STRING})
+LIST(GET BOOST_PYTHON_VERSION 0 BOOST_PYTHON_VERSION_MAJOR)
+LIST(GET BOOST_PYTHON_VERSION 1 BOOST_PYTHON_VERSION_MINOR)
+
+# Now set the different variants of the library name to check for
+SET(_BOOST_PYTHON_LIB_NAMES_TO_TRY python${BOOST_PYTHON_VERSION_MAJOR}${BOOST_PYTHON_VERSION_MINOR} python${BOOST_PYTHON_VERSION_MAJOR} python-py${BOOST_PYTHON_VERSION_MAJOR}${BOOST_PYTHON_VERSION_MINOR} python-py${BOOST_PYTHON_VERSION_MAJOR})
+
 if(${PYTHON_VERSION_STRING} GREATER 3.0)
   message(STATUS "Using Python3")
-  find_package(Boost COMPONENTS python3 REQUIRED)
 else()
   message(STATUS "Using Python2")
-  find_package(Boost COMPONENTS python REQUIRED)
+  list(APPEND _BOOST_PYTHON_LIB_NAMES_TO_TRY "python")
 endif()
+
+FOREACH(BOOST_PYTHON_LIB_NAME ${_BOOST_PYTHON_LIB_NAMES_TO_TRY})
+    find_package(Boost QUIET COMPONENTS ${BOOST_PYTHON_LIB_NAME})
+    STRING(TOUPPER ${BOOST_PYTHON_LIB_NAME} BOOST_PYTHON_LIB_NAME_UPPER)
+    IF (Boost_${BOOST_PYTHON_LIB_NAME_UPPER}_FOUND)
+        break()
+    ENDIF()
+ENDFOREACH()
 
 message( STATUS "Boost Paths:")
 message( STATUS "Include  : " ${Boost_INCLUDE_DIRS})

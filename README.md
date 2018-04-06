@@ -1,4 +1,8 @@
-# Boost.NumPy [![Build Status](https://travis-ci.org/ndarray/Boost.NumPy.svg?branch=master)](https://travis-ci.org/ndarray/Boost.NumPy)
+# Boost.NumPy 
+
+This fork of Boost.NumPy has been updated to fix issues with boost\_python3 library
+discovery on distributions that use non-standard naming for the library. In particular,
+issues were experienced on Ubuntu Linux and this issue is resolved in this fork.
 
 > # THIS PACKAGE IS NOW DEPRECATED IN FAVOR OF NUMPY SUPPORT INCLUDED DIRECTLY IN BOOST.PYTHON.
 >
